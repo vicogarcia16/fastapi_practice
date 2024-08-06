@@ -9,6 +9,7 @@ uvicorn = "*"
 sqlalchemy = "*"
 passlib = "*"
 argon2-cffi = "*"
+python-multipart = "*"
 
 [dev-packages]
 
