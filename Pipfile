@@ -11,6 +11,7 @@ passlib = "*"
 argon2-cffi = "*"
 python-multipart = "*"
 python-jose = "*"
+aiofiles = "*"
 
 [dev-packages]
 
