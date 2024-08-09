@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
+import uvicorn
 
 app = FastAPI()
 app.include_router(authentication.router)
@@ -44,3 +45,7 @@ if not os.path.exists("files"):
     
 app.mount("/files", StaticFiles(directory="files"), name="files")
 
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
