@@ -44,11 +44,3 @@ if not os.path.exists("files"):
     
 app.mount("/files", StaticFiles(directory="files"), name="files")
 
-if __name__ == "__main__":
-    import uvicorn
-    try:
-        uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
-    except KeyboardInterrupt:
-        print("Server stopped by user")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
