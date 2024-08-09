@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from router import (blog_get, blog_post, user,
-                    article, product)
+                    article, product, file)
 from auth import authentication
 from db import models
 from db.database import engine
@@ -8,9 +8,12 @@ from exceptions import StoryException
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI()
 app.include_router(authentication.router)
+app.include_router(file.router)
 app.include_router(user.router)
 app.include_router(article.router)
 app.include_router(product.router)
@@ -25,6 +28,8 @@ def index():
 def story_exception_handler(request: Request, exc: StoryException):
     return JSONResponse(status_code=418, content={"detail": exc.name})
 
+models.Base.metadata.create_all(bind=engine)
+
 origins = ["http://localhost:3000"]
 app.add_middleware(
     CORSMiddleware,
@@ -34,7 +39,10 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-models.Base.metadata.create_all(bind=engine)
+if not os.path.exists("files"):
+    os.makedirs("files")
+    
+app.mount("/files", StaticFiles(directory="files"), name="files")
 
 if __name__ == "__main__":
     import uvicorn
