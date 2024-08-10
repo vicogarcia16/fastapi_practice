@@ -11,7 +11,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 
-app = FastAPI()
+app = FastAPI(
+    title="Practice API",
+    description="This is a practice API with FastAPI",
+    version="1.0.0",
+    docs_url="/",
+    redoc_url="/redoc"
+)
 app.include_router(authentication.router)
 app.include_router(file.router)
 app.include_router(user.router)
@@ -19,10 +25,6 @@ app.include_router(article.router)
 app.include_router(product.router)
 app.include_router(blog_get.router)
 app.include_router(blog_post.router)
-
-@app.get("/")
-def index():
-    return {"message": "Hello World"}
 
 @app.exception_handler(StoryException)
 def story_exception_handler(request: Request, exc: StoryException):

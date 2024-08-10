@@ -7,10 +7,12 @@ from db.database import get_db
 from sqlalchemy.orm import Session
 from db import db_user
 from fastapi import Depends, HTTPException, status
-#from dotenv import load_dotenv
 import os
- 
-#load_dotenv() 
+
+if not os.getenv('PRODUCTION'):
+  from dotenv import load_dotenv
+  load_dotenv() 
+  
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
  
 SECRET_KEY = os.getenv('SECRET_KEY')
