@@ -12,6 +12,7 @@ argon2-cffi = "*"
 python-multipart = "*"
 python-jose = "*"
 aiofiles = "*"
+gunicorn = "*"
 
 [dev-packages]
 
