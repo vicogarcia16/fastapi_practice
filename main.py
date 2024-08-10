@@ -4,7 +4,7 @@ from router import (blog_get, blog_post, user,
 from auth import authentication
 from db import models
 from db.database import engine
-from exceptions import StoryException
+from tools.exceptions import StoryException
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware

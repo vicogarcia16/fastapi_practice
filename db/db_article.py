@@ -1,6 +1,6 @@
-from exceptions import StoryException
+from tools.exceptions import StoryException
 from sqlalchemy.orm import Session
-from schemas import ArticleBase
+from schemas.schemas import ArticleBase
 from db.models import DbArticle
 from fastapi import HTTPException, status
 

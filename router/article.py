@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
-from schemas import ArticleBase, ArticleDisplay
+from schemas.schemas import ArticleBase, ArticleDisplay
 from sqlalchemy.orm import Session
 from db.database import get_db
 from db import db_article
 from auth.oauth2 import get_current_user
-from schemas import UserBase
+from schemas.schemas import UserBase
 
 router = APIRouter(
     prefix="/article",

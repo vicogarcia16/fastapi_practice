@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
-
-#Artiche inside UserDisplay
+#Article inside UserDisplay
 class Article(BaseModel):
     title: str
     content: str
