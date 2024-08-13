@@ -1,5 +1,9 @@
 from fastapi.testclient import TestClient
 from main import app
+import os
+if not os.getenv('PRODUCTION'):
+  from dotenv import load_dotenv
+  load_dotenv() 
 
 client = TestClient(app)
 
@@ -17,7 +21,7 @@ def test_auth_error():
     
 def test_auth_success():
     response = client.post("/token",
-                data={"username": "vico","password": "vico"})
+                data={"username": os.getenv('USERNAME'),"password": os.getenv('PASSWORD')})
     access_token = response.json().get('access_token')
     assert access_token
     
