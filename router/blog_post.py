@@ -38,7 +38,7 @@ def create_comment(blog: BlogModel, id: int,
                    content: str = Body(..., 
                                        min_length=10, 
                                        max_length=15,
-                                       regex="^[a-z\s]*$"),
+                                       pattern=r"^[a-z\s]*$"),
                    v: Optional[List[str]] = Query(["1.0", "1.1", "1.2"]),
                    comment_id: int = Path(..., gt=5, le=10)
                    ):
