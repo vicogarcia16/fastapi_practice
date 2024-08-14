@@ -18,7 +18,7 @@ def create_article(request: ArticleBase, db: Session = Depends(get_db), current_
     return db_article.create_article(db, request)
 
 # Read specific article
-@router.get("/{id}", response_model=ArticleDisplay)
+@router.get("/{id}/", response_model=ArticleDisplay)
 def get_article(id: int, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
     return db_article.get_article(db, id)
 

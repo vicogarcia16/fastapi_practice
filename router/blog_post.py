@@ -21,13 +21,13 @@ class BlogModel(BaseModel):
     image: Optional[Image]
     
 
-@router.post("/new/{id}")
+@router.post("/new/{id}/")
 def create_blog(blog: BlogModel, id: int, version: int = 1):
     return {'id': id,
             'data': blog,
             'version': version}
 
-@router.post("/new/{id}/comment/{comment_id}")
+@router.post("/new/{id}/comment/{comment_id}/")
 def create_comment(blog: BlogModel, id: int,
                    comment_title: int = Query(None,
                                            title="Id of the comment",

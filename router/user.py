@@ -24,19 +24,19 @@ def get_all_users(db: Session = Depends(get_db),
     return db_user.get_all_users(db)
 
 # Read single user
-@router.get("/{id}", response_model=UserDisplay)
+@router.get("/{id}/", response_model=UserDisplay)
 def get_user(id: int, db: Session = Depends(get_db), 
                   current_user: UserBase = Depends(get_current_user)):
     return db_user.get_user(db, id)
 
 # Update user
-@router.put("/{id}/update", response_model=UserDisplay)
+@router.put("/{id}/update/", response_model=UserDisplay)
 def update_user(id: int, request: UserBase, db: Session = Depends(get_db), 
                   current_user: UserBase = Depends(get_current_user)):
     return db_user.update_user(db, id, request)
 
 # Delete user
-@router.delete("/{id}/delete")
+@router.delete("/{id}/delete/")
 def delete_user(id: int, db: Session = Depends(get_db), 
                   current_user: UserBase = Depends(get_current_user)):
     return db_user.delete_user(db, id)
