@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from router import (blog_get, blog_post, user,
                     article, product, file)
+from templates import templates
 from auth import authentication
 from db import models
 from db.database import engine
@@ -18,6 +19,7 @@ app = FastAPI(
     docs_url="/",
     redoc_url="/redoc"
 )
+app.include_router(templates.router)
 app.include_router(authentication.router)
 app.include_router(file.router)
 app.include_router(user.router)
@@ -45,4 +47,4 @@ if not os.path.exists("files"):
     os.makedirs("files")
     
 app.mount("/files", StaticFiles(directory="files"), name="files")
-
+app.mount("/templates/static", StaticFiles(directory="templates/static"), name="static")
