@@ -16,6 +16,7 @@ gunicorn = "*"
 requests = "*"
 pytest = "*"
 jinja2 = "*"
+websockets = "*"
 
 [dev-packages]
 
