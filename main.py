@@ -50,8 +50,6 @@ async def websocket_endpoint(websocket: WebSocket):
                 await client.send_text(data)
     except WebSocketDisconnect:
         clients.remove(websocket)
-      
-    
 
 @app.exception_handler(StoryException)
 def story_exception_handler(request: Request, exc: StoryException):

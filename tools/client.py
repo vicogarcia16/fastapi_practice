@@ -1,3 +1,10 @@
+import os
+if not os.getenv('PRODUCTION'):
+  from dotenv import load_dotenv
+  load_dotenv() 
+
+WEBSOCKET_URL = os.getenv('WEBSOCKET_URL')
+
 html = """
 <!DOCTYPE html>
 <html>
@@ -13,7 +20,7 @@ html = """
         <ul id='messages'>
         </ul>
         <script>
-            var ws = new WebSocket("ws://localhost:8000/chat/");
+            var ws = new WebSocket("{WEBSOCKET_URL}");
             ws.onmessage = function(event) {
                 var messages = document.getElementById('messages')
                 var message = document.createElement('li')
