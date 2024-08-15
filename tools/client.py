@@ -5,7 +5,7 @@ if not os.getenv('PRODUCTION'):
 
 WEBSOCKET_URL = os.getenv('WEBSOCKET_URL')
 
-html = """
+html = f"""
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,19 +21,19 @@ html = """
         </ul>
         <script>
             var ws = new WebSocket("{WEBSOCKET_URL}");
-            ws.onmessage = function(event) {
+            ws.onmessage = function(event) {{
                 var messages = document.getElementById('messages')
                 var message = document.createElement('li')
                 var content = document.createTextNode(event.data)
                 message.appendChild(content)
                 messages.appendChild(message)
-            };
-            function sendMessage(event) {
+            }};
+            function sendMessage(event) {{
                 var input = document.getElementById("messageText")
                 ws.send(input.value)
                 input.value = ''
                 event.preventDefault()
-            }
+            }}
         </script>
     </body>
 </html>
