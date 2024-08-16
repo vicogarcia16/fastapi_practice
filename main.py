@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from router import (blog_get, blog_post, user,
-                    article, product, file)
+                    article, product, file, dependencies)
 from templates import templates
 from auth import authentication
 from db import models
@@ -20,6 +20,7 @@ app = FastAPI(
     docs_url="/",
     redoc_url="/redoc"
 )
+app.include_router(dependencies.router)
 app.include_router(templates.router)
 app.include_router(authentication.router)
 app.include_router(file.router)
