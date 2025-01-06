@@ -30,27 +30,28 @@ app.include_router(product.router)
 app.include_router(blog_get.router)
 app.include_router(blog_post.router)
 
-@app.get("/chat/", include_in_schema=False)
-async def chat():
-    return HTMLResponse(html)
+if not os.getenv('PRODUCTION'):
+    @app.get("/chat/", include_in_schema=False)
+    async def chat():
+        return HTMLResponse(html)
+    
+    clients = []
+    messages = []
 
-clients = []
-messages = []
-
-@app.websocket("/chat/")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    clients.append(websocket)
-    for message in messages:
-        await websocket.send_text(message)
-    try:
-        while True:
-            data = await websocket.receive_text()
-            messages.append(data)
-            for client in clients:
-                await client.send_text(data)
-    except WebSocketDisconnect:
-        clients.remove(websocket)
+    @app.websocket("/chat/")
+    async def websocket_endpoint(websocket: WebSocket):
+        await websocket.accept()
+        clients.append(websocket)
+        for message in messages:
+            await websocket.send_text(message)
+        try:
+            while True:
+                data = await websocket.receive_text()
+                messages.append(data)
+                for client in clients:
+                    await client.send_text(data)
+        except WebSocketDisconnect:
+            clients.remove(websocket)
 
 @app.exception_handler(StoryException)
 def story_exception_handler(request: Request, exc: StoryException):
